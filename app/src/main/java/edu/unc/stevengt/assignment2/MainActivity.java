@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView accelerometerText = ( TextView ) findViewById( R.id.accelerometerText );
         TextView lightSensorText = ( TextView ) findViewById( R.id.lightSensorText );
+        TextView lightSensorPlotText = ( TextView ) findViewById( R.id.lightSensorPlotText );
 
         if ( mSensorManager.getDefaultSensor( Sensor.TYPE_ACCELEROMETER ) != null ) {
             accelerometer = mSensorManager.getDefaultSensor( Sensor.TYPE_ACCELEROMETER );
@@ -48,21 +49,23 @@ public class MainActivity extends AppCompatActivity {
         if ( mSensorManager.getDefaultSensor( Sensor.TYPE_LIGHT ) != null ) {
             lightSensor = mSensorManager.getDefaultSensor( Sensor.TYPE_LIGHT );
             Float range = lightSensor.getMaximumRange( );
-            Float resolution = lightSensor.getResolution( );
-            Integer delay = lightSensor.getMinDelay( );
+            Float resolution = lightSensor.getResolution();
+            Integer delay = lightSensor.getMinDelay();
 
-            String rangeString = range.toString( );
+            String rangeString = range.toString();
             String resolutionString = resolution.toString( );
             String delayString = delay.toString( );
 
-            lightSensorText.setText( "Status: Light sensor is present.\n"
+            String lightText =  "Status: Light sensor is present.\n"
                             + "Range: " + rangeString+"\n"
                             + "Resolution: " + resolutionString + "\n"
-                            + "Delay: " + delayString
-            );
+                            + "Delay: " + delayString;
+            lightSensorText.setText( lightText );
+            lightSensorPlotText.setText( lightText );
 
         } else {
             lightSensorText.setText( "Status: Light Sensor is not present." );
+            lightSensorPlotText.setText( "Status: Light Sensor is not present." );
         }
 
 
@@ -72,17 +75,28 @@ public class MainActivity extends AppCompatActivity {
     public void startAccelerometerPlotActivity( View view ) {
         if ( mSensorManager.getDefaultSensor( Sensor.TYPE_ACCELEROMETER ) != null ) {
             Intent intent = new Intent( this, AccelerometerPlot.class );
-            startActivity( intent );
+            startActivity(intent);
         } else {
             Toast errorMessage = new Toast( this );
             errorMessage.setText( "Accelerometer is not present." );
+            errorMessage.show();
+        }
+    }
+
+    public void startLightAnimationActivity( View view ) {
+        if ( mSensorManager.getDefaultSensor( Sensor.TYPE_LIGHT) != null ) {
+            Intent intent = new Intent( this, LightActivity.class );
+            startActivity( intent );
+        } else {
+            Toast errorMessage = new Toast( this );
+            errorMessage.setText( "Light sensor is not present." );
             errorMessage.show( );
         }
     }
 
-    public void startLightActivity( View view ) {
+    public void startLightPlotActivity( View view ) {
         if ( mSensorManager.getDefaultSensor( Sensor.TYPE_LIGHT) != null ) {
-            Intent intent = new Intent( this, LightActivity.class );
+            Intent intent = new Intent( this, LightPlot.class );
             startActivity( intent );
         } else {
             Toast errorMessage = new Toast( this );

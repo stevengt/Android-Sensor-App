@@ -24,6 +24,7 @@ public class LineGraphView extends View {
     private List<String> verlabels;
     private String title;
     private Integer numSeconds = 0;
+    private String units;
     private float defaultMax,
                 min,
                 max,
@@ -36,7 +37,7 @@ public class LineGraphView extends View {
                 graphWidth;
 
 
-    public LineGraphView( Context context, String title, float defaultMax ) {
+    public LineGraphView( Context context, String title, float defaultMax, String units ) {
         super( context );
         setWillNotDraw( false );
 
@@ -56,7 +57,7 @@ public class LineGraphView extends View {
         paint = new Paint( );
 
         this.defaultMax = defaultMax;
-
+        this.units = units;
     }
 
     @Override
@@ -76,7 +77,7 @@ public class LineGraphView extends View {
         drawVerLabels( canvas );
         drawTitle( canvas );
 
-        plotValues( canvas, values, "acceleration (m/s^2)", Color.RED, 1 );
+        plotValues( canvas, values, units, Color.RED, 1 );
         plotValues( canvas, means, "mean", Color.CYAN, 2 );
         plotValues( canvas, stddevs, "stddev", Color.GREEN, 3 );
 

@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AccelerometerPlot" />
-        <activity android:name=".LightActivity"></activity>
+        <activity android:name=".LightActivity" />
+        <activity android:name=".LightPlot"></activity>
     </application>
 
 </manifest>
